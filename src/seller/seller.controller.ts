@@ -1,7 +1,8 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, Query } from '@nestjs/common';
 import { SellerService } from './seller.service.js';
 import { CreateSellerDto } from './dto/create-seller.dto.js';
 import { UpdateSellerDto } from './dto/update-seller.dto.js';
+import { FindSellersQueryDto, PaginatedSellersResponse } from './dto/find-sellers-query.dto.js';
 
 @Controller('seller')
 export class SellerController {
@@ -13,8 +14,8 @@ export class SellerController {
   }
 
   @Get()
-  findAll() {
-    return this.sellerService.findAll();
+  findAll(@Query() query: FindSellersQueryDto): Promise<PaginatedSellersResponse> {
+    return this.sellerService.findAll(query);
   }
 
   @Get(':id')
