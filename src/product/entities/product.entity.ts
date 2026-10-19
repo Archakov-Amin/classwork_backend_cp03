@@ -1,5 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
-import { Seller } from '../../seller/entities/seller.entity.js';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn, CreateDateColumn } from 'typeorm';
+import type { Seller } from '../../seller/entities/seller.entity.js';
 
 @Entity('products')
 export class Product {
@@ -12,6 +12,10 @@ export class Product {
   @Column('decimal', { precision: 10, scale: 2 })
   price: number;
 
-  @ManyToOne(() => Seller, (seller) => seller.products, { onDelete: 'CASCADE' })
+  @ManyToOne('Seller', 'products', { onDelete: 'CASCADE' })
+  @JoinColumn({ name: 'seller_id' })
   seller: Seller;
+
+  @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
+  createdAt: Date;
 }

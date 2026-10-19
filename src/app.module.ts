@@ -27,7 +27,7 @@ const migrationsDir = join(
         password: config.get<string>('DB_PASSWORD', 'postgres'),
         database: config.getOrThrow<string>('DB_DATABASE'),
         autoLoadEntities: true,
-        synchronize: false,
+        synchronize: true,
         migrations: [migrationsDir],
         migrationsRun: false,
       }),

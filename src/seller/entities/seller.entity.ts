@@ -1,5 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { Product } from '../../product/entities/product.entity.js';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn } from 'typeorm';
+import type { Product } from '../../product/entities/product.entity.js';
 
 @Entity('sellers')
 export class Seller {
@@ -12,6 +12,9 @@ export class Seller {
   @Column({ unique: true })
   email: string;
 
-  @OneToMany(() => Product, (product) => product.seller)
+  @OneToMany('Product', 'seller')
   products: Product[];
+
+  @CreateDateColumn({ name: 'created_at', type: 'timestamptz' })
+  createdAt: Date;
 }
